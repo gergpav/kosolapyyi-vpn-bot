@@ -181,6 +181,11 @@ def test_command(update: Update, context: CallbackContext):
         )
 
         keyboard = [
+            [
+                InlineKeyboardButton(
+                    "📖 Инструкции для подключения", callback_data="instructions"
+                )
+            ],
             [InlineKeyboardButton("🔙 Главное меню", callback_data="back_to_main")],
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
