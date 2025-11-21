@@ -9,4 +9,8 @@ services:
       - .env
     working_dir: /app
     command: ["python", "main.py"]
+    volumes:
+      # Монтируем локальную папку с базой внутрь контейнера
+      - ./database:/app/database
+
 
