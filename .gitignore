@@ -6,3 +6,4 @@ video
 __pycache__
 logs
 .venv/
+.idea/
