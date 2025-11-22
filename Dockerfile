@@ -2,13 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Сначала копируем только requirements — ускоряет сборку
-COPY requirements.txt .
+# Установка sqlite3
+RUN apt update && apt install -y sqlite3 && apt clean
 
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Потом копируем весь проект
 COPY . .
 
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
 CMD ["python", "main.py"]
+
 
