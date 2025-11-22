@@ -15,7 +15,7 @@ logger = setup_logger(__name__)
 # ================================
 # ===  ВАЛИДАЦИЯ/ОТКАЗ ОПЛАТЫ  ===
 # ================================
-def approve_payment(telegram_id, context, query, telegram_username):
+def approve_payment(telegram_id, context, query):
     from database.database import conn
     cursor = conn.cursor()
     cursor.execute(
@@ -42,8 +42,6 @@ def approve_payment(telegram_id, context, query, telegram_username):
     )
     username_row = cursor.fetchone()
     username = username_row[0] if username_row and username_row[0] else f"ID: {telegram_id}"
-
-    telegram_username = telegram_username if telegram_username else "Без имени"
 
     cursor.execute(
         """
@@ -115,7 +113,7 @@ def approve_payment(telegram_id, context, query, telegram_username):
     dt_end = datetime.fromtimestamp(expiry_time_ms / 1000.0)
     dt_human = dt_end.strftime("%Y-%m-%d %H:%M")
 
-    vless_key = vless_key_generate(client_uuid, telegram_username)
+    vless_key = vless_key_generate(client_uuid, username)
 
     # Отправляем пользователю уведомление о подтверждении
     keyboard = [
@@ -196,8 +194,7 @@ def reject_payment(telegram_id, context, query):
 def approve_payment_router(update: Update, context: CallbackContext):
     query = update.callback_query
     telegram_id = int(query.data.split("_")[1])
-    telegra_username = update.effective_user.username
-    approve_payment(telegram_id, context, query, telegra_username)
+    approve_payment(telegram_id, context, query)
 
 
 def reject_payment_router(update: Update, context: CallbackContext):
