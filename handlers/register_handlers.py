@@ -95,5 +95,5 @@ def register_helpers(dp):
     dp.add_handler(CallbackQueryHandler(callback_router, pattern="^back_to_main$"))
     dp.add_handler(
         CallbackQueryHandler(unknown_callback)
-    )  # <-- без pattern: ловит ВСЁ нераспознанное
+    )  
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_text))

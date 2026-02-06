@@ -40,7 +40,7 @@ def save_receipt_message(update: Update, context: CallbackContext):
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Сохраняем id сообщения + id чата
+    # Сохранение id сообщения + id чата
     context.user_data["last_receipt_message_id"] = update.message.message_id
     context.user_data["last_receipt_chat_id"] = update.message.chat_id
 
@@ -87,7 +87,7 @@ def back_to_main(update: Update, context: CallbackContext):
     except:
         pass
 
-    # Отправляем новое фото с меню
+    # Отправление нового фото с меню
     with open(os.path.join(BASE_DIR, "images", "menu.jpg"), "rb") as img:
         context.bot.send_photo(
             chat_id=chat_id,

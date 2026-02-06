@@ -31,13 +31,13 @@ def show_menu(update: Update, context: CallbackContext):
 
     chat_id = query.message.chat.id
 
-    # Удаляем старое сообщение
+    # Удаление старого сообщения
     try:
         query.message.delete()
     except:
         pass
 
-    # Отправляем новое фото с меню
+    # Отправление нового фото с меню
     with open(os.path.join(BASE_DIR, "images", "menu.jpg"), "rb") as img:
         context.bot.send_photo(
             chat_id=chat_id,
